@@ -28,10 +28,14 @@ function capture(selector, name) {
 }
 
 (async function() {
+  console.log('Start retrieving ' + URL_TO_VISIT);
   const instance = await phantom.create();
   const page = await instance.createPage();
-  const status = await page.open(URL_TO_VISIT);
-  console.log(status);
+  const status = await page.open(URL_TO_VISIT, {
+    encoding: 'utf8',
+    gzip: true
+  });
+  console.log('Status: ' + status);
 
   const postData = await page.evaluate(function() {
     const chart = document.querySelector('div.chart');
@@ -45,17 +49,16 @@ function capture(selector, name) {
     };
   });
 
-  console.log(postData);
+  console.log('Retrieved data: ', postData);
 
   await instance.exit();
 
-  // const postTitle = 'Day 45: 44.5% (👍) - 45.5% (👎)';
   const postTitle = postData.title;
   const postDay = postData.day;
   const postUrl = postTitle.replace(/[^a-zA-Z0-9\uD83D\uDC4D\uD83D\uDC4E]+/g, '-').replace(/-$/g, '');
 
   capture('div.chart.main', 'trend-' + postDay + '.png');
-  capture('div.polls', 'polls' + postDay + '.png');
+  capture('div.polls', 'polls-' + postDay + '.png');
 
   exec('cd blog && hexo new "' + postTitle + '"', (error, stdout, stderr) => {
     if(error) {
