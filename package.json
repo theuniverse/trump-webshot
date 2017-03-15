@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "shot": "node index.js",
+    "shot": "node --harmony-async-await index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "phantom": "4.0.0", 
+    "phantom": "4.0.0",
     "webshot": "^0.18.0"
   }
 }
