@@ -40,7 +40,7 @@ async function capture(selector, name) {
   const instance = await phantom.create();
   const page = await instance.createPage();
   await page.on('onResourceRequested', function(requestData) {
-    console.info('Requesting', requestData.url);
+    // console.info('Requesting', requestData.url);
   });
 
   const status = await page.open(URL_TO_VISIT, {
@@ -69,8 +69,11 @@ async function capture(selector, name) {
   const postDay = postData.day;
   const postUrl = postTitle.replace(/[^a-zA-Z0-9\uD83D\uDC4D\uD83D\uDC4E]+/g, '-').replace(/-$/g, '');
 
-  await capture('div.chart.main', 'trend-' + postDay + '.png');
-  await capture('div.polls', 'polls-' + postDay + '.png');
+  const trendPic = 'trend-' + postDay + '.png';
+  const pollsPic = 'polls-' + postDay + '.png';
+
+  await capture('div.chart.main', trendPic);
+  await capture('div.polls', pollsPic);
 
   exec('cd blog && hexo new "' + postTitle + '"', (error, stdout, stderr) => {
     if(error) {
@@ -78,7 +81,7 @@ async function capture(selector, name) {
       return;
     }
 
-    exec('cp *.png blog/source/images/ && echo "![Trend](/images/trend.png)\n\n![Polls](/images/polls.png)" >> "blog/source/_posts/' + postUrl + '.md"', (error, stdout, stderr) => {
+    exec('cp *.png blog/source/images/ && echo "![Trend](/images/' + trendPic + ')\n\n![Polls](/images/' + pollsPic + ')" >> "blog/source/_posts/' + postUrl + '.md"', (error, stdout, stderr) => {
       if(error) {
         console.log(error);
         return;
