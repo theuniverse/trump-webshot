@@ -12,19 +12,27 @@ async function sleep(timeout) {
   });
 }
 
-function capture(selector, name) {
-  webshot(
-    URL_TO_VISIT,
-    name,
-    {
-      captureSelector: selector,
-      width: 1024,
-      height: 550
-    },
-    function(err) {
-      console.log(name + ' captured');
-    }
-  );
+async function capture(selector, name) {
+  return new Promise((resolve, reject) => {
+    webshot(
+      URL_TO_VISIT,
+      name,
+      {
+        captureSelector: selector,
+        width: 1024,
+        height: 550
+      },
+      function(err) {
+        if (err) {
+          console.log(err);
+          reject();
+        } else {
+          console.log(name + ' captured');
+          resolve();
+        }
+      }
+    );
+  });
 }
 
 (async function() {
@@ -61,8 +69,8 @@ function capture(selector, name) {
   const postDay = postData.day;
   const postUrl = postTitle.replace(/[^a-zA-Z0-9\uD83D\uDC4D\uD83D\uDC4E]+/g, '-').replace(/-$/g, '');
 
-  capture('div.chart.main', 'trend-' + postDay + '.png');
-  capture('div.polls', 'polls-' + postDay + '.png');
+  await capture('div.chart.main', 'trend-' + postDay + '.png');
+  await capture('div.polls', 'polls-' + postDay + '.png');
 
   exec('cd blog && hexo new "' + postTitle + '"', (error, stdout, stderr) => {
     if(error) {
