@@ -81,7 +81,7 @@ async function capture(selector, name) {
       return;
     }
 
-    exec('cp *.png blog/source/images/ && echo "![Trend](/images/' + trendPic + ')\n\n![Polls](/images/' + pollsPic + ')" >> "blog/source/_posts/' + postUrl + '.md"', (error, stdout, stderr) => {
+    exec('mv *.png blog/source/images/ && echo "![Trend](/images/' + trendPic + ')\n\n![Polls](/images/' + pollsPic + ')" >> "blog/source/_posts/' + postUrl + '.md"', (error, stdout, stderr) => {
       if(error) {
         console.log(error);
         return;
