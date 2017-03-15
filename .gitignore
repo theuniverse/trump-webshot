@@ -1,8 +1,8 @@
 // Images
-.png
+*.png
 
 // Logs
-.log
+*.log
 
 // Platform files
 .DS_Store
