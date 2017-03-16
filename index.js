@@ -88,7 +88,7 @@ async function exec_sync(command) {
   await capture('div.chart.main', trendPic);
   await capture('div.polls', pollsPic);
 
-  const TREND_POLLS_LINE = '![Trend](/images/' + trendPic + ')\n\n![Polls](/images/' + pollsPic + ')\n';
+  const TREND_POLLS_LINE = '![Trend](/images/' + trendPic + ')\n\n![Polls](/images/' + pollsPic + ')\n\n';
   const FOOT_NOTE = 'More to visit ***[How (un)popular is Donald Trump?](https://projects.fivethirtyeight.com/trump-approval-ratings/)*** on FiveThirtyEight';
   const ALL_CONTENT = TREND_POLLS_LINE + FOOT_NOTE;
 
