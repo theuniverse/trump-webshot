@@ -52,10 +52,6 @@ async function exec_sync(command) {
   console.log('Start retrieving ' + URL_TO_VISIT);
   const instance = await phantom.create();
   const page = await instance.createPage();
-  await page.on('onResourceRequested', function(requestData) {
-    // console.info('Requesting', requestData.url);
-  });
-
   const status = await page.open(URL_TO_VISIT, {
     encoding: 'utf8',
     gzip: true
@@ -73,7 +69,6 @@ async function exec_sync(command) {
       day: day.replace(' ', '-').toLowerCase()
     };
   });
-
   console.log('Retrieved data: ', postData);
 
   await instance.exit();

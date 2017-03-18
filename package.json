@@ -1,15 +1,14 @@
 {
   "name": "trump-webshot",
-  "version": "0.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "A simple tool to generate daily-updated trump polls blog",
   "main": "index.js",
   "scripts": {
     "shot": "node --harmony-async-await index.js",
-    "shot-fake": "node --harmony-async-await fake.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Qi Xi<blanchsi1990@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "phantom": "4.0.0",
     "webshot": "^0.18.0"
