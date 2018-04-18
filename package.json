@@ -4,7 +4,7 @@
   "description": "A simple tool to generate daily-updated trump polls blog",
   "main": "index.js",
   "scripts": {
-    "shot": "node --harmony-async-await index.js",
+    "shot": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Qi Xi<blanchsi1990@gmail.com>",
