@@ -1,4 +1,4 @@
-const phantom = require('phantom');
+const puppeteer = require('puppeteer');
 const exec = require('child_process').exec;
 
 const URL_TO_VISIT = 'https://projects.fivethirtyeight.com/trump-approval-ratings/';
@@ -19,9 +19,9 @@ const exec_sync = async (command) => {
 
 (async () => {
   console.log(`Start retrieving ${URL_TO_VISIT}`);
-  const instance = await phantom.create();
-  const page = await instance.createPage();
-  const status = await page.open(URL_TO_VISIT, {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const status = await page.goto(URL_TO_VISIT, {
     encoding: 'utf8',
     gzip: true
   });
@@ -40,7 +40,7 @@ const exec_sync = async (command) => {
   });
   console.log('Retrieved data: ', postData);
 
-  await instance.exit();
+  await browser.close();
 
   const postTitle = postData.title;
   const postFootNote = '点进来了解更多';
