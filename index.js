@@ -27,26 +27,32 @@ const exec_sync = async (command) => {
   });
   console.log('Status: ' + status);
 
-  const postData = await page.evaluate(function () {
-    const chart = document.querySelector('div.chart');
-    const approved = chart.childNodes[0].getElementsByClassName('label approve fg')[0].childNodes[0].textContent;
-    const disapproved = chart.childNodes[0].getElementsByClassName('label disapprove fg')[0].childNodes[0].textContent;
-    const day = chart.childNodes[0].getElementsByClassName('mouse-guide')[0].childNodes[0].textContent;
+  const chartData = await page.evaluate(() => {
+    const chart = document.querySelector('div.chart').childNodes[0];
+    const approved = chart.getElementsByClassName('label approve fg')[0].childNodes[0].textContent;
+    const disapproved = chart.getElementsByClassName('label disapprove fg')[0].childNodes[0].textContent;
+    const day = chart.getElementsByClassName('mouse-guide')[0].childNodes[0].textContent;
 
     return {
       title: [day, ' - ', approved, '% 👍 : ', disapproved, '% 👎'].join(''),
       day: day.replace(' ', '-').toLowerCase()
     };
   });
-  console.log('Retrieved data: ', postData);
+  console.log('Chart data: ', chartData);
+
+  const pollData = await page.evaluate(() => {
+    const polls = document.querySelectorAll('tr.new-poll:not(.hidden)');
+    return polls;
+  });
+  console.log('Chart data: ', pollData);
 
   await browser.close();
 
-  const postTitle = postData.title;
+  const postTitle = chartData.title;
   const postFootNote = '点进来了解更多';
 
   const ALL_CONTENT = `${postTitle}\n${postFootNote}\n===\n${URL_TO_VISIT}`;
   console.log(ALL_CONTENT);
 
-  await exec_sync(`curl -d "${ALL_CONTENT}" -H "Content-Type:text/plain" -X POST ${URL_TO_POST}`);
+  // await exec_sync(`curl -d "${ALL_CONTENT}" -H "Content-Type:text/plain" -X POST ${URL_TO_POST}`);
 })();
