@@ -49,9 +49,10 @@ const exec_sync = async (command) => {
   await browser.close();
 
   const postTitle = chartData.title;
-  const postFootNote = '点进来了解更多';
+  // const postFootNote = '点进来了解更多';
+  // ${postFootNote}\n
 
-  const ALL_CONTENT = `${postTitle}\n${postFootNote}\n===\n${URL_TO_VISIT}`;
+  const ALL_CONTENT = `${postTitle}，点 ${URL_TO_VISIT} 了解更多 #Trump538#`;
   console.log(ALL_CONTENT);
 
   // await exec_sync(`curl -d "${ALL_CONTENT}" -H "Content-Type:text/plain" -X POST ${URL_TO_POST}`);
