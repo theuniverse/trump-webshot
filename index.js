@@ -25,7 +25,7 @@ const exec_sync = async (command) => {
     encoding: 'utf8',
     gzip: true
   });
-  console.log('Status: ' + status);
+  // console.log('Status: ', status);
 
   const chartData = await page.evaluate(() => {
     const chart = document.querySelector('div.chart').childNodes[0];
