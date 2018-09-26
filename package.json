@@ -10,7 +10,6 @@
   "author": "Qi Xi<blanchsi1990@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "phantom": "4.0.0",
-    "webshot": "^0.18.0"
+    "puppeteer": "^1.8.0"
   }
 }
